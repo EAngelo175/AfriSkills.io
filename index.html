@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AfriSkills.io</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <b class="logo">AfriSkills.io</b>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#pathway">Pathway</a>
+        <a href="#courses">Courses</a>
+        <a href="#coach">Gemini AI Coach</a>
+        <a href="#my-learning">My Learning</a>
+        <a href="#project">Profile &amp; CV</a>
+        <a href="#jobs">Opportunities</a>
+        <a href="#provider">Provider Dashboard</a>
+        <a href="#recruiter">Recruiter</a>
+        <a href="#admin">Administration</a>
+      </nav>
+      <label class="role-picker">Preview role · not sign-in
+        <select id="workspace-role" aria-label="Preview role (demo only)">
+          <option value="learner">Learner</option>
+          <option value="recruiter">Recruiter</option>
+          <option value="provider">Education Provider</option>
+          <option value="admin">Administrator</option>
+        </select>
+      </label>
+    </header>
+    <main>
+      <p id="storage-error" class="notice storage-error" role="alert" hidden></p>
+      <section id="home" class="view">
+        <span class="eye">YOUR NEXT STEP STARTS HERE</span>
+        <h1>Learn a skill. <em>Build your future.</em></h1>
+        <p>Turn a career goal into a learning plan, a portfolio project and a CV draft.</p>
+        <a class="btn" href="#pathway">Build my pathway →</a>
+        <a class="btn secondary" href="#coach">Ask the Gemini AI Coach</a>
+        <div class="grid">
+          <div class="card">
+            <h3>Discover</h3>
+            <p>External learning resources.</p>
+          </div>
+          <div class="card">
+            <h3>Choose</h3>
+            <p>Goal, time and budget.</p>
+          </div>
+          <div class="card">
+            <h3>Build</h3>
+            <p>A project you can explain.</p>
+          </div>
+          <div class="card">
+            <h3>Present</h3>
+            <p>A truthful CV draft.</p>
+          </div>
+        </div>
+      </section>
+      <section id="pathway" class="view">
+        <h2>Build your pathway</h2>
+        <form id="pf" class="card">
+          <label>First name<input id="nm"></label>
+          <label>Target role<select id="role"></select></label>
+          <label>
+            Hours per week
+            <select id="hrs">
+              <option>2</option>
+              <option>4</option>
+              <option selected>6</option>
+              <option>10</option>
+              <option>20</option>
+            </select>
+          </label>
+          <button class="btn">Create pathway →</button>
+        </form>
+        <div id="road"></div>
+      </section>
+      <section id="coach" class="view">
+        <div class="section-heading">
+          <div><span id="coach-eyebrow" class="eye">PERSONAL LEARNING SUPPORT</span><h2>Gemini AI Coach</h2></div>
+          <span id="coach-status" class="tag muted" role="status">Checking connection…</span>
+        </div>
+        <div class="coach-toolbar">
+          <p id="coach-description" class="notice">Get help planning your learning, understanding a topic, or improving a project. Avoid sharing passwords, private contact details, or sensitive information.</p>
+          <label class="coach-language" for="coach-language">Coach language
+            <select id="coach-language" aria-label="Coach language">
+              <option value="en">English</option>
+              <option value="lg">Luganda</option>
+            </select>
+          </label>
+        </div>
+        <div class="coach-layout">
+          <div class="card coach-intro">
+            <h3 id="coach-intro-title">What would you like help with?</h3>
+            <p id="coach-intro-description">Your coach can help break a goal into manageable steps, explain concepts, or give feedback on a project idea. Review AI suggestions and verify course details independently.</p>
+            <div class="coach-prompts" aria-label="Example questions">
+              <button type="button" class="prompt-chip" data-coach-prompt data-coach-en="Help me make a beginner-friendly weekly study plan." data-coach-lg="Mandeere enteekateeka y’okusoma eya wiiki eri omutandisi.">Make a study plan</button>
+              <button type="button" class="prompt-chip" data-coach-prompt data-coach-en="Explain a difficult topic in simple steps and give me a small exercise." data-coach-lg="Nnyonnyola ensonga enzibu mu mitendera egyangu, ompe n’eky’okukola ekitono.">Explain a topic</button>
+              <button type="button" class="prompt-chip" data-coach-prompt data-coach-en="Help me turn a skill into a small portfolio project." data-coach-lg="Nyamba okukola pulojekiti entono ey’okulaga obukugu bwange.">Plan a project</button>
+              <button type="button" class="prompt-chip" data-coach-prompt data-coach-en="Translate this text into Luganda and explain any difficult words: " data-coach-lg="Vvuunula ekiwandiiko kino mu Luganda era onnyonnyole ebigambo ebizibu: ">Translate to Luganda</button>
+            </div>
+            <p id="coach-privacy" class="tiny">Powered by Google's Gemini when the secure local server is configured. Your chat is sent to Google for a response and is not saved by this demo. To connect it, add <code>GEMINI_API_KEY</code> to a local <code>.env</code> file, then run <code>npm start</code>. Never put the key in browser code or share the <code>.env</code> file.</p>
+          </div>
+          <div class="card coach-chat">
+            <div id="coach-messages" class="coach-messages" aria-live="polite" aria-label="Coach conversation">
+              <p id="coach-welcome" class="coach-welcome">Hi! Tell me what you’re learning and what you’d like help with.</p>
+            </div>
+            <form id="coach-form">
+              <label id="coach-message-label" for="coach-input">Your message</label>
+              <textarea id="coach-input" name="message" rows="3" maxlength="2000" placeholder="For example: I have 4 hours a week and want to learn web development…" required></textarea>
+              <div class="coach-form-actions">
+                <span id="coach-error" class="coach-error" role="alert"></span>
+                <button id="coach-send" class="btn" type="submit">Send message</button>
+              </div>
+            </form>
+            <button id="coach-clear" class="btn text-button" type="button">Clear conversation</button>
+          </div>
+        </div>
+        <section class="card translation-card" aria-labelledby="translation-title">
+          <div class="section-heading">
+            <div>
+              <span class="eye" id="translation-eyebrow">ENGLISH → LUGANDA</span>
+              <h3 id="translation-title">Translate English into Luganda</h3>
+            </div>
+          </div>
+          <p id="translation-description">Enter English text to get a Luganda translation for your learning and coaching.</p>
+          <form id="translation-form">
+            <label id="translation-source-label" for="translation-source">English text</label>
+            <textarea id="translation-source" name="text" rows="4" maxlength="2000" placeholder="Type or paste English text here…" required></textarea>
+            <div class="coach-form-actions">
+              <span id="translation-error" class="coach-error" role="alert"></span>
+              <button id="translation-submit" class="btn" type="submit">Translate to Luganda</button>
+            </div>
+          </form>
+          <div id="translation-result" class="translation-result" aria-live="polite" hidden>
+            <h4 id="translation-result-title">Luganda translation</h4>
+            <p id="translation-output"></p>
+            <small><span id="translation-request-label">Request ID</span>: <code id="translation-request-id"></code></small>
+          </div>
+        </section>
+      </section>
+      <section id="courses" class="view">
+        <h2>Learning Hub</h2>
+        <div class="bar">
+          <input id="q" placeholder="Search courses…">
+          <select id="topic">
+            <option value="">All topics</option>
+          </select>
+          <select id="hub-provider"><option value="">All providers</option></select>
+          <select id="hub-type">
+            <option value="">All organization types</option>
+            <option>University</option><option>Institute</option><option>NGO</option>
+            <option>Vocational Training Centre</option><option>Private Academy</option>
+            <option>Government Agency</option><option>Other</option>
+          </select>
+          <select id="price">
+            <option value="">Any fee type</option><option>Free</option><option>Paid</option>
+            <option>Scholarship-supported</option>
+          </select>
+          <input id="min-price" type="number" min="0" placeholder="Min price">
+          <input id="max-price" type="number" min="0" placeholder="Max price">
+          <select id="currency"><option value="">Any currency</option></select>
+          <select id="hub-level">
+            <option value="">All levels</option><option>Beginner</option>
+            <option>Intermediate</option><option>Advanced</option>
+          </select>
+          <select id="hub-format">
+            <option value="">All formats</option><option>Online</option>
+            <option>In-person</option><option>Hybrid</option>
+          </select>
+          <select id="hub-certificate">
+            <option value="">Certificate: any</option><option value="yes">Available</option>
+            <option value="no">Not specified/No</option>
+          </select>
+          <select id="hub-duration">
+            <option value="">Any duration</option><option value="short">Under 1 month</option>
+            <option value="medium">1–6 months</option><option value="long">Over 6 months</option>
+          </select>
+          <input id="hub-location" placeholder="Location">
+          <select id="hub-deadline">
+            <option value="">Any deadline</option><option value="open">Open/self-paced</option>
+            <option value="upcoming">Upcoming deadline</option>
+          </select>
+          <select id="hub-verified">
+            <option value="">Any verification</option><option value="yes">Verified provider</option>
+            <option value="no">Not verified</option>
+          </select>
+        </div>
+        <div id="clist" class="grid"></div>
+        <p class="tiny">Provider-submitted details are self-reported unless labeled verified. Always confirm availability, fees, dates, and credentials on the official provider page. External courses are not hosted by AfriSkills.io.</p>
+      </section>
+      <section id="my-learning" class="view">
+        <h2>My Learning</h2>
+        <p class="notice">This page tracks your own saved courses and self-reported activity in this browser. External providers do not confirm enrolment here.</p>
+        <div id="my-learning-list" class="grid"></div>
+      </section>
+      <section id="project" class="view">
+        <h2>Portfolio project &amp; CV draft</h2>
+        <div class="two">
+          <div class="card">
+            <h3 id="ptitle">Build a pathway first</h3>
+            <ul id="tasks" class="check"></ul>
+          </div>
+          <form id="cv" class="card">
+            <p class="tiny">Talent profile and CV draft are saved in this browser only; they are not shared with recruiters.</p>
+            <label>Full name<input name="name"></label>
+            <label>Education<textarea name="education"></textarea></label>
+            <label>Skills you can honestly discuss<textarea name="skills"></textarea></label>
+            <label>Projects completed<textarea name="projects"></textarea></label>
+            <button type="button" id="copy" class="btn">Copy CV draft</button>
+            <pre id="out"></pre>
+          </form>
+        </div>
+      </section>
+      <section id="jobs" class="view">
+        <h2>Opportunities</h2>
+        <div id="jlist"></div>
+        <p class="tiny">Listings and employers are not verified in this demo. Saving interest does not submit an application or confirm employer contact.</p>
+      </section>
+      <section id="provider" class="view">
+        <div class="section-heading">
+          <div><span class="eye">EDUCATION PROVIDER</span><h2>Provider Dashboard</h2></div>
+          <span id="provider-status" class="tag">Draft</span>
+        </div>
+        <div class="notice">Preview only — changes stay in this browser. <details class="notice-detail"><summary>What this demo does not do</summary><span>It does not verify identities, upload documents, publish real courses, process enrolments, or protect roles with authentication.</span></details></div>
+        <nav class="subnav" aria-label="Provider dashboard">
+          <button data-provider-tab="overview" class="active">Provider Overview</button>
+          <details class="nav-group">
+            <summary>Organization</summary>
+            <div class="nav-group-items">
+              <button data-provider-tab="organization">Organization Profile</button>
+              <button data-provider-tab="verification">Verification Status</button>
+              <button data-provider-tab="settings">Settings</button>
+            </div>
+          </details>
+          <details class="nav-group">
+            <summary>Courses</summary>
+            <div class="nav-group-items">
+              <button data-provider-tab="courses">My Courses</button>
+              <button data-provider-tab="add-course">Add New Course</button>
+            </div>
+          </details>
+          <details class="nav-group">
+            <summary>Learner activity</summary>
+            <div class="nav-group-items">
+              <button data-provider-tab="interest">Learner Interest</button>
+              <button data-provider-tab="analytics">Course Analytics</button>
+              <button data-provider-tab="credentials">Certificates &amp; Credentials</button>
+            </div>
+          </details>
+        </nav>
+        <div id="provider-panel"></div>
+      </section>
+      <section id="recruiter" class="view">
+        <h2>Recruiter workspace</h2>
+        <p class="notice">Recruiter tools are a local prototype. No candidate accounts or applications are connected.</p>
+        <div class="two">
+          <div class="card"><h3>Talent discovery</h3><p>No learner profiles are available in this demo.</p></div>
+          <div class="card"><h3>Opportunities</h3><form id="opportunity-form">
+            <label>Opportunity title<input name="title" required></label>
+            <label>Organization<input name="organization" required></label>
+            <button class="btn" name="intent" value="draft">Save draft opportunity</button>
+            <button class="btn secondary" name="intent" value="review">Submit for administrator review</button>
+          </form><div id="recruiter-opportunities"></div></div>
+          <div class="card"><h3>Shortlist</h3><p>Candidate shortlisting is unavailable until learner accounts and consent are implemented.</p></div>
+          <div class="card"><h3>Applications</h3><p>No applications have been submitted through this prototype.</p></div>
+        </div>
+      </section>
+      <section id="admin" class="view">
+        <div class="section-heading">
+          <div><span class="eye">PLATFORM MANAGEMENT</span><h2>Administration</h2></div>
+          <span class="tag">Admin preview</span>
+        </div>
+        <div class="notice">Preview only — changes stay in this browser. <details class="notice-detail"><summary>Security limitation</summary><span>This is not an authenticated administrator account. Production verification and moderation must be protected by a secured backend.</span></details></div>
+        <nav class="subnav" aria-label="Administration">
+          <button data-admin-tab="overview" class="active">Overview</button>
+          <details class="nav-group">
+            <summary>Review queue</summary>
+            <div class="nav-group-items">
+              <button data-admin-tab="organizations">Organization verification</button>
+              <button data-admin-tab="courses">Course reviews</button>
+              <button data-admin-tab="reports">Course reports</button>
+              <button data-admin-tab="opportunities">Opportunity reviews</button>
+            </div>
+          </details>
+          <details class="nav-group">
+            <summary>Manage listings</summary>
+            <div class="nav-group-items">
+              <button data-admin-tab="published">Published courses</button>
+              <button data-admin-tab="job-listings">Published opportunities</button>
+            </div>
+          </details>
+          <details class="nav-group">
+            <summary>Platform settings</summary>
+            <div class="nav-group-items">
+              <button data-admin-tab="accounts">Provider accounts</button>
+              <button data-admin-tab="taxonomy">Categories &amp; skills</button>
+              <button data-admin-tab="audit">Audit log</button>
+            </div>
+          </details>
+        </nav>
+        <div id="admin-panel"></div>
+      </section>
+    </main>
+    <footer>AfriSkills.io</footer>
+    <script src="app.js"></script>
+    <script src="provider.js"></script>
+    <script src="coach.js"></script>
+  </body>
+</html>
